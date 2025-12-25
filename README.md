@@ -53,20 +53,3 @@ These insights were translated into **data-backed recommendations** to improve e
 
 This project was completed as part of the **Business Analytics Capstone** at the **University of New Haven**.
 
-## Repository Structure
-
-```text
-xoxoday-social-media-business-analytics-capstone/
-├── docs/
-│   ├── Xoxoday_Capstone_Report.pdf
-│   └── Xoxoday_Capstone_Presentation.pdf
-├── code/
-│   └── analysis.R
-├── powerbi/
-│   └── Xoxoday_Capstone_Dashboard.pbix
-├── images/
-│   ├── dashboard_overview.png
-│   ├── engagement_by_time.png
-│   ├── hashtag_analysis.png
-│   └── clustering_output.png
-└── README.md
