@@ -55,6 +55,9 @@ This project was completed as part of the **Business Analytics Capstone** at the
 
 ## Repository Structure
 
+## Repository Structure
+
+```text
 xoxoday-social-media-business-analytics-capstone/
 ├── docs/
 │   ├── Xoxoday_Capstone_Report.pdf
@@ -69,4 +72,3 @@ xoxoday-social-media-business-analytics-capstone/
 │   ├── hashtag_analysis.png
 │   └── clustering_output.png
 └── README.md
-
