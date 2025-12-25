@@ -44,12 +44,12 @@ These insights were translated into **data-backed recommendations** to improve e
 
 ---
 
-## Team & Acknowledgment
-**Team Members:**  
-- Durga Ganeshula  
-- Muskan Jiwani  
-- Sumith Kumar Kurapati  
-- Kirti Moi Barua  
+## Key Results at a Glance
+- Identified peak engagement windows during **weekday afternoons and evenings**, enabling optimized posting schedules.
+- Demonstrated that **visual and media-based content** significantly outperformed text-only posts.
+- Determined that **1–3 hashtags** maximized engagement, while overuse reduced performance.
+- Leveraged **K-means clustering** to segment tweets into distinct engagement tiers, supporting targeted content strategy.
+
 
 This project was completed as part of the **Business Analytics Capstone** at the **University of New Haven**.
 
