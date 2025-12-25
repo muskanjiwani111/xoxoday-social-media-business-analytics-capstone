@@ -54,6 +54,7 @@ These insights were translated into **data-backed recommendations** to improve e
 This project was completed as part of the **Business Analytics Capstone** at the **University of New Haven**.
 
 ## Repository Structure
+
 xoxoday-social-media-business-analytics-capstone/
 ├── docs/
 │   ├── Xoxoday_Capstone_Report.pdf
