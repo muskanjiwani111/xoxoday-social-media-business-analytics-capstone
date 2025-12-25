@@ -1,0 +1,97 @@
+# ============================================
+# Xoxoday Capstone — R Analysis (GitHub Ready)
+# ============================================
+
+# Libraries
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+
+# -----------------------------
+# 1) Load Data (REPLACE PATH)
+# -----------------------------
+# Option A (recommended): keep dataset in /data folder
+# df <- read_csv("data/xoxoday.csv")
+
+# Option B: if dataset is not uploaded, ask user to set path here
+df <- read_csv("PATH_TO_YOUR_FILE/xoxoday.csv")
+
+# Quick check
+glimpse(df)
+
+# -------------------------------------------------
+# 2) Hashtag Count vs Engagement (Scatter + Trend)
+# -------------------------------------------------
+# IMPORTANT: Update column names below to match your dataset
+# Example assumptions:
+# - hashtags column is "hashtags" (text like "#a #b") or numeric
+# - likes column is "likes"
+# - retweets column is "retweets"
+
+# If hashtags is TEXT (e.g., "#a #b"), compute count:
+df <- df %>%
+  mutate(
+    hashtag_count = ifelse(is.na(hashtags) | hashtags == "", 0,
+                           stringr::str_count(hashtags, "#")),
+    engagement = likes + retweets
+  )
+
+plot(
+  df$hashtag_count,
+  df$engagement,
+  main = "Hashtag Count vs Engagement (Xoxoday)",
+  xlab = "Number of Hashtags",
+  ylab = "Likes + Retweets",
+  pch = 19,
+  col = rgb(0.2, 0.4, 0.8, 0.55),
+  cex = 1.2,
+  bty = "n"
+)
+
+abline(h = pretty(df$engagement), col = "#e8e8e8", lwd = 1)
+
+model <- lm(engagement ~ hashtag_count, data = df)
+abline(model, col = "black", lwd = 1.7)
+
+# -------------------------------------------------
+# 3) Posting Time Heatmap (Day x Time Engagement)
+# -------------------------------------------------
+# This section assumes you have:
+# - day column like "Mon", "Tue"... OR a date column
+# - time bucket column like "6 AM", "9 AM", etc.
+# If your dataset has a datetime column instead, tell me and I’ll adapt it.
+
+# Example assumptions:
+# - day column name: "day"
+# - time bucket column name: "time_bucket"
+# - engagement computed above
+
+# Aggregate to get average engagement per Day x Time
+posting_summary <- df %>%
+  group_by(day, time_bucket) %>%
+  summarise(avg_engagement = mean(engagement, na.rm = TRUE), .groups = "drop")
+
+# Convert to matrix format for heatmap (optional)
+posting_data <- acast(posting_summary, day ~ time_bucket, value.var = "avg_engagement")
+
+# Reorder to match your preferred layout
+colnames(posting_data) <- c("6 AM","9 AM","12 PM","3 PM","6 PM","11 PM")
+rownames(posting_data) <- c("Mon","Tue","Wed","Thu","Fri","Sat","Sun")
+
+heat_df <- melt(posting_data)
+colnames(heat_df) <- c("Day","Time","Engagement")
+
+ggplot(heat_df, aes(Time, Day, fill = Engagement)) +
+  geom_tile(color = "white") +
+  scale_fill_gradientn(
+    colours = c("#E5E5E5", "#FEEA8A", "#FDBA4A", "#F3722C", "#D00000")
+  ) +
+  labs(title = "Top-Performing Posting Time", x = "", y = "") +
+  theme_minimal(base_size = 16) +
+  theme(
+    plot.title = element_text(size = 22, face = "bold", hjust = 0.5),
+    axis.text.x = element_text(face = "bold", size = 12),
+    axis.text.y = element_text(face = "bold", size = 12),
+    legend.position = "none"
+  )
